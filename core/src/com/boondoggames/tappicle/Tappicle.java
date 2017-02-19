@@ -9,18 +9,26 @@ public class Tappicle extends MyGame {
 	private final int worldWidth = 100;
 	private int worldHeight;
 
-	
 	@Override
-	public void create () {
+	public void create() {
 		init();
 		setScreen(new MainScreen(this));
 	}
-	
+
 	@Override
 	protected void initViewport() {
-		worldHeight = (Gdx.graphics.getHeight()/Gdx.graphics.getWidth()) * worldWidth;
+		// Ensure we do the math here with floats, as int math is very weird
+		worldHeight = (int) ((Gdx.graphics.getHeight() * 1.0f / Gdx.graphics.getWidth()) * worldWidth);
 
 		setViewport(new StretchViewport(worldWidth, worldHeight));
-		getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),true);
+		getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
+	}
+
+	public float getWidth() {
+		return worldWidth;
+	}
+
+	public float getHeight() {
+		return worldHeight;
 	}
 }
